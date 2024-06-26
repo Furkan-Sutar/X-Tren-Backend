@@ -21,7 +21,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 mongooseConnect();
 
-app.use(express.json());
 
 // Routes
 app.use('/api', ContactRouter);

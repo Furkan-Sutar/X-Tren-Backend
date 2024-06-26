@@ -1,22 +1,17 @@
-const  mongoose =  require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require("mongoose");
 
-const ContactFormSchema = new Schema({
+const ContactFormSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    trim: true,
   },
   email: {
     type: String,
     required: true,
-    trim: true,
-    match: [/.+\@.+\..+/, 'Please enter a valid email address'],
   },
   message: {
     type: String,
     required: true,
-    trim: true,
   },
   createdAt: {
     type: Date,
@@ -24,6 +19,6 @@ const ContactFormSchema = new Schema({
   },
 });
 
-const ContactForm = mongoose.model('ContactForm', ContactFormSchema);
+const ContactForm = mongoose.model("ContactForm", ContactFormSchema);
 
 module.exports = ContactForm;

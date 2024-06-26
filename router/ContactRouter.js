@@ -5,14 +5,14 @@ const ContactForm = require('../models/ContactForm');
 router.post('/contact', async (req, res) => {
   try {
     const { username, email, message } = req.body;
-
+                                                  
     const form = new ContactForm({
       username,
       email,
       message,
     });
 
-    const saveData = await form.save();
+const saveData = await form.save()    
     console.log('saveData', saveData);
     res.status(201).json({
       message: 'Contact form submitted successfully',

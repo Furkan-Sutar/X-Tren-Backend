@@ -1,34 +1,26 @@
-const  mongoose =require ('mongoose')
-const dotenv = require('dotenv')
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
-const mongooseConnect = async () => {
+const connectDB = async () => {
   try {
-    const uri = process.env.MONGODB_URI; // Use your MongoDB URI from environment variables
+    const uri = process.env.MONGODB_URI;
     if (!uri) {
-      throw new Error('MONGODB_URI is not defined in the environment variables');
+      throw new Error('MongoDB URI is not defined in the environment variables');
     }
 
-    await mongoose.connect(uri,);
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 5000, // Timeout for server selection
+      socketTimeoutMS: 45000, // Timeout for socket operations
+    });
 
     console.log('MongoDB connected successfully');
   } catch (error) {
     console.error('MongoDB connection error:', error);
+    // Optionally handle error here, e.g., throw error to stop application initialization
+    throw error;
   }
 };
 
-// Event listeners for connection status
-mongoose.connection.on('connected', () => {
-  console.log('MongoDB connection established');
-});
-
-mongoose.connection.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
-});
-
-mongoose.connection.on('disconnected', () => {
-  console.log('MongoDB disconnected');
-});
-
-module.exports = mongooseConnect;
+module.exports = connectDB;
