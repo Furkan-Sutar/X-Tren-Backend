@@ -1,8 +1,8 @@
-const express = require("express");
-
+const express = require('express');
 const router = express.Router();
-const ContactForm = require("../models/ContactForm");
-router.post("/contact", async (req, res) => {
+const ContactForm = require('../models/ContactForm');
+
+router.post('/contact', async (req, res) => {
   try {
     const { username, email, message } = req.body;
 
@@ -13,16 +13,17 @@ router.post("/contact", async (req, res) => {
     });
 
     const saveData = await form.save();
-    console.log("saveData", saveData);
-    res.json({
-      message: "updated",
+    console.log('saveData', saveData);
+    res.status(201).json({
+      message: 'Contact form submitted successfully',
       error: false,
       success: true,
       data: saveData,
     });
   } catch (error) {
-    res.json({
-      message: "some thing wrong",
+    console.error('Error saving contact form:', error);
+    res.status(500).json({
+      message: 'Something went wrong',
       error: true,
       success: false,
     });
